@@ -1,6 +1,6 @@
 {
   "name": "context-latch",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Smooth out LLM cold starts with intelligent request latching!",
   "homepage": "https://github.com/pedro-arruda-moreira/context-latch#readme",
   "bugs": {
@@ -14,6 +14,10 @@
   "author": "",
   "type": "module",
   "main": "dist/index.js",
+  "bin": "dist/bin/bin.js",
+  "engines": {
+    "node": ">= 20"
+  },
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build"
