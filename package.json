@@ -1,0 +1,30 @@
+{
+  "name": "context-latch",
+  "version": "1.0.0",
+  "description": "Smooth out LLM cold starts with intelligent request latching!",
+  "homepage": "https://github.com/pedro-arruda-moreira/context-latch#readme",
+  "bugs": {
+    "url": "https://github.com/pedro-arruda-moreira/context-latch/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pedro-arruda-moreira/context-latch.git"
+  },
+  "license": "MIT",
+  "author": "",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.0",
+    "typescript": "^6.0.3"
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "dist/**/*.map"
+  ]
+}
