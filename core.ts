@@ -4,12 +4,18 @@ import { createServerInstance } from "./http_server.js";
 import { ERROR_STATUS_TIMED_OUT, httpRequest } from "./http_client.js";
 import { log } from "./log.js";
 
+export enum UpstreamType {
+    ANTHROPIC,
+    OPENAI
+}
+
 export interface Config {
     port: number;
     tickTime: number;
     deadline: number;
     upstreamHost: string;
     maxInflightRequests?: number;
+    upstreamType: UpstreamType;
 }
 
 let globalConfig: Config;
@@ -25,7 +31,15 @@ function sendJob(job: Job) {
         }
     });
     job.clientRequest = httpRequest(globalConfig.upstreamHost, request, (chunk) => {
-        if (job.isBrowser || chunk.toString().startsWith('data:')) {
+        if (job.isBrowser || globalConfig.upstreamType === UpstreamType.ANTHROPIC) {
+            if (job.status !== JobStatus.STREAMING) {
+                log(job.id, 'Streaming started.');
+            }
+            job.status = JobStatus.STREAMING;
+            response.write(chunk);
+            return;
+        }
+        if (chunk.toString().startsWith('data:')) {
             if (job.status !== JobStatus.STREAMING) {
                 log(job.id, 'Streaming started.');
                 job.status = JobStatus.STREAMING;

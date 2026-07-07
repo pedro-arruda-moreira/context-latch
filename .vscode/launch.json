@@ -14,6 +14,9 @@
             "program": "${workspaceFolder}/dist/bin/bin.js",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
+            ],
+            "args": [
+                "${workspaceFolder}/config_sample/config.json"
             ]
         }
     ]

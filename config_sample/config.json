@@ -1,0 +1,8 @@
+{
+    "port": 22868,
+    "tickTime": 333,
+    "deadline": 175000,
+    "upstreamHost": "localhost:22867",
+    "upstreamType": "OPENAI",
+    "maxInflightRequests": 1
+}
