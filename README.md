@@ -31,12 +31,11 @@ Copy `config_sample/config.json` to your project and adjust:
 ## Install
 
 ```bash
-npm install
-npm run build
+npm install -g context-latch
 ```
 
 ## Usage
 
 ```bash
-npx context-latch ./path/to/config.json
+context-latch ./path/to/config.json
 ```
