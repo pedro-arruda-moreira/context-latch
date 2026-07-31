@@ -16,6 +16,7 @@ export interface Config {
     upstreamHost: string;
     maxInflightRequests?: number;
     upstreamType: UpstreamType;
+    debug?: boolean;
 }
 
 let globalConfig: Config;
@@ -31,16 +32,17 @@ function sendJob(job: Job) {
         }
     });
     job.clientRequest = httpRequest(globalConfig.upstreamHost, request, (chunk) => {
-        if (job.isBrowser || globalConfig.upstreamType === UpstreamType.ANTHROPIC) {
-            if (job.status !== JobStatus.STREAMING) {
-                log(job.id, 'Streaming started.');
-            }
-            job.status = JobStatus.STREAMING;
-            response.write(chunk);
-            return;
+        const chunkStr: String = chunk.toString();
+        if (!!globalConfig.debug) {
+            log(job.id, `Received chunk: ${chunkStr}`);
         }
-        if (chunk.toString().startsWith('data:')) {
-            if (job.status !== JobStatus.STREAMING) {
+        if (job.isBrowser) {
+            job.status = JobStatus.STREAMING;
+        } else if (job.status !== JobStatus.STREAMING) {
+            if (globalConfig.upstreamType === UpstreamType.ANTHROPIC && chunkStr.length > 2) {
+                log(job.id, 'Streaming started.');
+                job.status = JobStatus.STREAMING;
+            } else if (chunkStr.indexOf('data:') > -1) {
                 log(job.id, 'Streaming started.');
                 job.status = JobStatus.STREAMING;
             }

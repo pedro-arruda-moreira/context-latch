@@ -1,8 +1,9 @@
 {
     "port": 22868,
     "tickTime": 333,
-    "deadline": 175000,
+    "deadline": 290000,
     "upstreamHost": "localhost:22867",
-    "upstreamType": "OPENAI",
-    "maxInflightRequests": 1
+    "upstreamType": "ANTHROPIC",
+    "maxInflightRequests": 1,
+    "debug": true
 }

@@ -17,7 +17,8 @@
             ],
             "args": [
                 "${workspaceFolder}/config_sample/config.json"
-            ]
+            ],
+            "console": "integratedTerminal"
         }
     ]
 }
